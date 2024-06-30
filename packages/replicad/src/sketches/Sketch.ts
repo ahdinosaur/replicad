@@ -12,7 +12,7 @@ import {
   GenericSweepConfig,
   LoftConfig,
 } from "../addThickness.js";
-import { Face, Shape3D, Wire } from "../shapes.js";
+import { Face, Shape3D, Solid, Wire } from "../shapes.js";
 import { SketchInterface } from "./lib.js";
 
 /**
@@ -121,7 +121,7 @@ export default class Sketch implements SketchInterface {
   revolve(
     revolutionAxis?: Point,
     { origin }: { origin?: Point } = {}
-  ): Shape3D {
+  ): Solid {
     const face = makeFace(this.wire);
     const solid = revolution(
       face,
@@ -156,7 +156,7 @@ export default class Sketch implements SketchInterface {
       twistAngle?: number;
       origin?: Point;
     } = {}
-  ): Shape3D {
+  ): Solid {
     const [r, gc] = localGC();
 
     const extrusionVec = r(
@@ -244,7 +244,7 @@ export default class Sketch implements SketchInterface {
     otherSketches: this | this[],
     loftConfig: LoftConfig = {},
     returnShell = false
-  ): Shape3D {
+  ): Solid {
     const sketchArray = Array.isArray(otherSketches)
       ? [this, ...otherSketches]
       : [this, otherSketches];

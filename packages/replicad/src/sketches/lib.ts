@@ -1,4 +1,4 @@
-import { Face, Shape3D } from "../shapes";
+import { Face, Solid } from "../shapes";
 import { Point } from "../geom";
 
 import { ExtrusionProfile, LoftConfig } from "../addThickness.js";
@@ -13,7 +13,7 @@ export interface SketchInterface {
    * Revolves the drawing on an axis (defined by its direction and an origin
    * (defaults to the sketch origin)
    */
-  revolve(revolutionAxis?: Point, config?: { origin?: Point }): Shape3D;
+  revolve(revolutionAxis?: Point, config?: { origin?: Point }): Solid;
 
   /**
    * Extrudes the sketch to a certain distance.(along the default direction
@@ -34,7 +34,7 @@ export interface SketchInterface {
       twistAngle?: number;
       origin?: Point;
     }
-  ): Shape3D;
+  ): Solid;
 
   /**
    * Loft between this sketch and another sketch (or an array of them)
@@ -50,5 +50,5 @@ export interface SketchInterface {
     otherSketches: this | this[],
     loftConfig: LoftConfig,
     returnShell?: boolean
-  ): Shape3D;
+  ): Solid;
 }

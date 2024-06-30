@@ -16,7 +16,7 @@ import {
   LoftConfig,
 } from "../addThickness.js";
 import { SketchInterface } from "./lib.js";
-import { cast, Face, Shape3D, Shell, Wire } from "../shapes.js";
+import { cast, Face, Shape3D, Solid, Shell, Wire } from "../shapes.js";
 import { getOC } from "../oclib.js";
 
 const guessFaceFromWires = (wires: Wire[]): Face => {
@@ -160,7 +160,7 @@ export default class CompoundSketch implements SketchInterface {
       twistAngle?: number;
       origin?: Point;
     } = {}
-  ): Shape3D {
+  ): Solid {
     const extrusionVec = new Vector(
       extrusionDirection || this.outerSketch.defaultDirection
     )
@@ -206,7 +206,7 @@ export default class CompoundSketch implements SketchInterface {
   revolve(
     revolutionAxis?: Point,
     { origin }: { origin?: Point } = {}
-  ): Shape3D {
+  ): Solid {
     const solid = revolution(
       this.face(),
       origin || this.outerSketch.defaultOrigin,
@@ -215,7 +215,7 @@ export default class CompoundSketch implements SketchInterface {
     return solid;
   }
 
-  loftWith(otherCompound: this, loftConfig: LoftConfig): Shape3D {
+  loftWith(otherCompound: this, loftConfig: LoftConfig): Solid {
     if (this.sketches.length !== otherCompound.sketches.length)
       throw new Error(
         "You need to loft with another compound with the same number of sketches"
